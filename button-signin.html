@@ -1,0 +1,57 @@
+<%@ page import="ro.appenigne.web.framework.auth.AuthService"%>
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-icon/core-icon.html">
+<link rel="import" href="../core-icons/core-icons.html">
+<link rel="import" href="../core-ajax/core-ajax.html">
+<link rel="import" href="../core-signals/core-signals.html">
+<link rel="import" href="../font-roboto/roboto.html">
+
+<!--<link rel="import" href="../google-apis/google-js-api.html">-->
+<link rel="import" href="../paper-button/paper-button-base.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+<link rel="import" href="../paper-shadow/paper-shadow.html">
+<link rel="import" href="google-icons.html">
+
+<polymer-element name="button-signin" extends="paper-button-base" role="button" attributes="type,link,image,size,classButton,labelSignin,icon">
+  <template>
+    <link rel="stylesheet" href="button-signin.css" >
+
+    <core-signals on-core-signal-google-auth-request="{{authRequestScopes}}"></core-signals>
+    <core-signals on-core-signal-google-auth-user="{{authUserChange}}"></core-signals>
+    <core-signals on-core-signal-google-auth-scopes="{{authScopesChange}}"></core-signals>
+
+    <template if="{{raised}}">
+      <paper-shadow id="shadow" fit animated></paper-shadow>
+    </template>
+
+    <div id="button" class="{{classButton}}">
+		<!--<core-icon src="Linkedin.svg"></core-icon>-->
+      <paper-ripple id="ripple" fit></paper-ripple>
+
+      <!-- this div is needed to position the ripple behind text content -->
+
+		  
+          <div class="" tabindex="0"
+              on-click="{{signIn}}" on-keydown="{{signInKeyPress}}">
+            <i class="icon"><core-icon src="{{image}}" ></core-icon></i>
+            <span class="buttonText">{{labelSignin}}</span>
+          </div>
+      
+    </div>
+    
+  </template>
+
+  <script>
+	  (function() {
+	      Polymer({
+	  		ready: function() {
+			  
+			},
+            signIn: function(){
+              window.location.href = this.link;
+            }
+	       
+	      });
+	    })();
+  </script>
+</polymer-element>
