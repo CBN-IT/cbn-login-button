@@ -7,18 +7,13 @@
 </head>
 <body unresolved>
 <template id="app" is="auto-binding" >
-      <!--<core-ajax auto="true"-->
-        <!--url="/GetLoginUrl"-->
-         <!--handleAs="json"-->
-         <!--response="{{response}}">-->
-      <!--</core-ajax>-->
 	  <div class="modal-content">
 		<div class="modal-body">
             <div class="well" vertical layout>
                 <img src="../../images/logo.png" align="center" style="width: 280px;margin-bottom: 20px">
-                <button-signin labelSignin="Sign in with Google" link="/?auth=appengine" image="google:google" size="125%" classButton="height-standard width-wide theme-dark signedIn-false  brand-google additionalAuth-false">Sign in with Google</button-signin>
-                <button-signin labelSignin="Sign in with Yahoo" link="/?auth=yahoo" image="yahoo:yahoo" size="135%" classButton="height-standard width-wide theme-dark signedIn-false  brand-yahoo additionalAuth-false">Sign in with Yahoo</button-signin>
-                <button-signin labelSignin="Sign in with Linkedin" link="/?auth=linkedin" image="linkedin:linkedin" size="135%" classButton="height-standard width-wide theme-dark signedIn-false  brand-linkedin additionalAuth-false">Sign in with Yahoo</button-signin>
+                <button-signin labelSignin="Sign in with Google" link="/?auth=appengine" icon="google:google" classButton="brand-google">Sign in with Google</button-signin>
+                <button-signin labelSignin="Sign in with Yahoo" link="/?auth=yahoo" icon="yahoo:yahoo" classButton="brand-yahoo">Sign in with Yahoo</button-signin>
+                <button-signin labelSignin="Sign in with Linkedin" link="/?auth=linkedin" icon="linkedin:linkedin" classButton="brand-linkedin">Sign in with Yahoo</button-signin>
             </div>	
 		</div>
 	  </div>
