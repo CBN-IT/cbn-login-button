@@ -1,0 +1,12 @@
+{
+  "name": "cbn-login-button",
+  "version": "0.1.0",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^0.5",
+    "core-icon": "Polymer/core-icon#^0.5",
+    "font-roboto": "Polymer/font-roboto#^0.5",
+    "paper-button": "Polymer/paper-button#^0.5",
+    "paper-ripple": "Polymer/paper-ripple#^0.5",
+    "core-image": "Polymer/core-image#^0.5"
+  }
+}
