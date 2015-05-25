@@ -21,11 +21,45 @@
 
   <script>
 	  (function() {
-	      Polymer({
-            signIn: function(){
-              window.location.href = this.link;
-            }
-	      });
+          Polymer({
+              signIn: function () {
+                  var keyVal = this.link.split("=");
+                  document.location.search = this._insertParam(keyVal[0], keyVal[1]);
+                  //window.location.href = this.link;
+              },
+              _insertParam: function (key, value) {
+                  key = encodeURI(key);
+                  value = encodeURI(value);
+
+                  var kvp = document.location.search.substr(1).split('&');
+                  var i = kvp.length;
+                  var x;
+                  while (i--) {
+                      x = kvp[i].split('=');
+                      if (x[0] == key) {
+                          x[1] = value;
+                          kvp[i] = x.join('=');
+                          break;
+                      }
+                  }
+                  if (i < 0) {
+                      kvp[kvp.length] = [key, value].join('=');
+                  }
+                  kvp = this._cleanArray(kvp, "");
+                  //this will reload the page, it's likely better to store this until finished
+                  return kvp.join('&');
+
+              },
+              _cleanArray: function (actual, elemToDelete) {
+                  var newArray = [];
+                  for (var i = 0; i < actual.length; i++) {
+                      if (actual[i] !== elemToDelete) {
+                          newArray.push(actual[i]);
+                      }
+                  }
+                  return newArray;
+              }
+          });
 	    })();
   </script>
 </polymer-element>
