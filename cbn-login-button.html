@@ -5,11 +5,11 @@
 
 <link rel="import" href="../paper-button/paper-button-base.html">
 <link rel="import" href="../paper-ripple/paper-ripple.html">
-<link rel="import" href="google-icons.html">
+<link rel="import" href="cbn-login-button-icons.html">
 
-<polymer-element name="button-signin" extends="paper-button-base" role="button" attributes="link,classButton,labelSignin,icon">
+<polymer-element name="cbn-login-button" extends="paper-button-base" role="button" attributes="link,classButton,labelSignin,icon">
   <template>
-    <link rel="stylesheet" href="button-signin.css" >
+    <link rel="stylesheet" href="cbn-login-button.css" >
     <div id="button" class="{{classButton}}">
       <paper-ripple id="ripple" fit></paper-ripple>
           <div class="" tabindex="0" on-tap="{{signIn}}">
@@ -25,7 +25,6 @@
             signIn: function(){
               window.location.href = this.link;
             }
-	       
 	      });
 	    })();
   </script>
