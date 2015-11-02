@@ -1,0 +1,171 @@
+<!-- shared styles for all elements and index.html -->
+<dom-module id="cbn-login-button-styles">
+  <template>
+    <style>
+      :host {
+        box-sizing: border-box;
+        background: transparent;
+        text-align: center;
+        font: inherit;
+        outline: none;
+        border-radius: 3px;
+        -webkit-user-select: none;
+        user-select: none;
+        cursor: pointer;
+        z-index: 0;
+        display: inline-block;
+        position: relative;
+        margin: 5px 34px;
+      }
+
+      :host([disabled]) {
+        cursor: auto;
+        pointer-events: none;
+      }
+
+      :host([disabled]) #button {
+        background: #eaeaea;
+        color: #a8a8a8;
+      }
+
+      #button {
+        width: 100%;
+        outline: none;
+        font-size: 14px;
+        font-weight: 400;
+        font-family: 'RobotoDraft', 'Roboto', arial, sans-serif;
+        white-space: nowrap;
+        border-radius: inherit;
+      }
+
+      core-icon {
+        width: 22px;
+        height: 22px;
+        margin: 6px;
+      }
+
+      .icon {
+        display: inline-block;
+        vertical-align: middle;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 20%;
+        line-height: 34px;
+        font-size: 1.6em;
+        text-align: center;
+        border-right: 1px solid rgba(0, 0, 0, 0.2);
+      }
+
+      #shadow {
+        border-radius: inherit;
+      }
+
+      #ripple {
+        pointer-events: none;
+      }
+
+      .buttonText {
+        display: inline-block;
+        vertical-align: middle;
+        padding-right: .8em;
+        width: 70%;
+      }
+
+      /*
+       * Icon Only Width
+       */
+      .width-iconOnly .buttonText {
+        display: none;
+      }
+
+      /*
+       * Tall Height
+       */
+      .height-tall .buttonText {
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .height-tall core-icon {
+        width: 30px;
+        height: 30px;
+        margin: 8px;
+      }
+
+      /*
+       * Short Height
+       */
+      .height-short .buttonText {
+        font-size: 11px;
+      }
+
+      .height-short core-icon {
+        width: 16px;
+        height: 16px;
+        margin: 3px;
+      }
+
+      /*
+       * Branding
+       */
+
+      /* Google Scopes */
+
+      /* Dark Theme */
+      .brand-google {
+        background: #4184F3;
+        color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+
+      .brand-yahoo {
+        background: #720e9e;
+        color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+
+      .brand-linkedin {
+        background: #0077b5;
+        color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+
+      .brand-facebook {
+        background: #0077b5;
+        color: #fff;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+      }
+
+      .brand-google#ripple {
+        color: #1b39a8;
+      }
+
+      :host([noink]) .brand-google:hover,
+      :host([noink]) .brand-google:focus {
+        background: #e74b37;
+      }
+
+      .brand-google-plus {
+        background: #da4336;
+        color: #fff;
+        border: 1px solid transparent;
+      }
+
+      .brand-google-plus #ripple {
+        color: #c43828;
+      }
+
+      .button.raised {
+        transition: box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        transition-delay: 0.2s;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+      }
+
+      .button > paper-ripple {
+        border-radius: 2px;
+        overflow: hidden;
+      }
+    </style>
+  </template>
+</dom-module>

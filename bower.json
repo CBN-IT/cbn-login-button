@@ -1,16 +1,24 @@
 {
-    "name": "cbn-login-button",
-    "private": true,
-    "version": "0.1.0",
-    "dependencies": {
-        "polymer": "Polymer/polymer#^0.5",
-        "core-icon": "Polymer/core-icon#^0.5",
-        "core-icons": "Polymer/core-icons#^0.5",
-        "font-roboto": "Polymer/font-roboto#^0.5",
-        "paper-button": "Polymer/paper-button#^0.5",
-        "paper-ripple": "Polymer/paper-ripple#^0.5"
-    },
-    "devDependencies": {
-        "core-image": "Polymer/core-image#^0.5"
-    }
+  "name": "cbn-login-button",
+  "version": "1.0.6",
+  "main": [
+    "cbn-login-button.html"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.1.0",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.0",
+    "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^1.0.0",
+    "paper-ripple": "PolymerElements/paper-ripple#^1.0.0",
+    "font-roboto": "PolymerElements/font-roboto#^1.0.0"
+  },
+  "devDependencies": {
+    "polymer": "Polymer/polymer#^1.1.0",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.0",
+    "iron-iconset-svg": "PolymerElements/iron-iconset-svg#^1.0.0",
+    "iron-image": "PolymerElements/iron-image#^1.0.0",
+    "iron-icons": "PolymerElements/iron-icons#^1.0.0",
+    "paper-ripple": "PolymerElements/paper-ripple#^1.0.0",
+    "font-roboto": "PolymerElements/font-roboto#^1.0.0"
+  }
 }

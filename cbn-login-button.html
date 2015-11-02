@@ -1,65 +1,109 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../core-icon/core-icon.html">
-<link rel="import" href="../core-icons/core-icons.html">
-<link rel="import" href="../font-roboto/roboto.html">
-
-<link rel="import" href="../paper-button/paper-button-base.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../paper-ripple/paper-ripple.html">
+<link rel="import" href="../font-roboto/roboto.html">
+<link rel="import" href="../iron-iconset-svg/iron-iconset-svg.html">
 <link rel="import" href="cbn-login-button-icons.html">
+<link rel="import" href="cbn-login-button-styles.html">
+<!--<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">-->
 
-<polymer-element name="cbn-login-button" extends="paper-button-base" role="button" attributes="link,classButton,labelSignin,icon">
+
+<dom-module id="cbn-login-button">
   <template>
-    <link rel="stylesheet" href="cbn-login-button.css" >
-    <div id="button" class="{{classButton}}">
-      <paper-ripple id="ripple" fit></paper-ripple>
-          <div class="" tabindex="0" on-tap="{{signIn}}">
-            <i class="icon"><core-icon icon="{{icon}}" ></core-icon></i>
-            <span class="buttonText">{{labelSignin}}</span>
-          </div>
+    <!--<link rel="stylesheet" href="cbn-login-button.css" >-->
+    <style is="custom-style" include="cbn-login-button-styles"></style>
+   <!-- <style>
+      :host {
+        margin: 5px 34px;
+      }
+    </style>-->
+    <div id="button" class$="{{classButton}}">
+      <paper-ripple id="ripple" class="fit"></paper-ripple>
+      <div class="" tabindex="0" on-tap="signIn">
+        <i class="icon"><iron-icon icon$="{{icon}}" ></iron-icon></i>
+        <span class="buttonText"><content></content></span>
+      </div>
     </div>
+
   </template>
 
-  <script>
-	  (function() {
-          Polymer({
-              signIn: function () {
-                  var keyVal = this.link.split("=");
-                  document.location.search = this._insertParam(keyVal[0], keyVal[1]);
-                  //window.location.href = this.link;
-              },
-              _insertParam: function (key, value) {
-                  key = encodeURI(key);
-                  value = encodeURI(value);
+</dom-module>
 
-                  var kvp = document.location.search.substr(1).split('&');
-                  var i = kvp.length;
-                  var x;
-                  while (i--) {
-                      x = kvp[i].split('=');
-                      if (x[0] == key) {
-                          x[1] = value;
-                          kvp[i] = x.join('=');
-                          break;
-                      }
-                  }
-                  if (i < 0) {
-                      kvp[kvp.length] = [key, value].join('=');
-                  }
-                  kvp = this._cleanArray(kvp, "");
-                  //this will reload the page, it's likely better to store this until finished
-                  return kvp.join('&');
+<script>
 
-              },
-              _cleanArray: function (actual, elemToDelete) {
-                  var newArray = [];
-                  for (var i = 0; i < actual.length; i++) {
-                      if (actual[i] !== elemToDelete) {
-                          newArray.push(actual[i]);
-                      }
-                  }
-                  return newArray;
-              }
-          });
-	    })();
-  </script>
-</polymer-element>
+  Polymer({
+
+    is: 'cbn-login-button',
+
+    properties: {
+      /**
+       * The title of the card.
+       */
+      link: {
+        type: String,
+        value: ''
+      },
+      classButton: {
+        type: String,
+        value: ''
+        },
+      labelSignIn: {
+        type: String,
+        value: ''
+        },
+      icon: {
+        type: String,
+        value: ''
+        }
+    },
+
+    signIn: function () {
+      var keyVal = this.link.split("=");
+      document.location.search = this._insertParam(keyVal[0], keyVal[1]);
+      //window.location.href = this.link;
+    },
+    _insertParam: function (key, value) {
+      key = encodeURI(key);
+      value = encodeURI(value);
+
+      var kvp = document.location.search.substr(1).split('&');
+      var i = kvp.length;
+      var x;
+      while (i--) {
+        x = kvp[i].split('=');
+        if (x[0] == key) {
+          x[1] = value;
+          kvp[i] = x.join('=');
+          break;
+        }
+      }
+      if (i < 0) {
+        kvp[kvp.length] = [key, value].join('=');
+      }
+      kvp = this._cleanArray(kvp, "");
+      //this will reload the page, it's likely better to store this until finished
+      return kvp.join('&');
+
+    },
+    _cleanArray: function (actual, elemToDelete) {
+      var newArray = [];
+      for (var i = 0; i < actual.length; i++) {
+        if (actual[i] !== elemToDelete) {
+          newArray.push(actual[i]);
+        }
+      }
+      return newArray;
+    }
+  });
+</script>
