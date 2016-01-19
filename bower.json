@@ -2,7 +2,19 @@
     "name": "cbn-login-button",
     "version": "1.0.0",
     "main": [
-        "cbn-login-button.html"
+        "cbn-login/cbn-login.html"
+    ],
+    "ignore": [
+        "**/.*",
+        "resources/*.zip",
+        "test",
+        "demo",
+        "node_modules",
+        "bower_components",
+        "Gruntfile.js",
+        "package.json",
+        "src",
+        "alternative images"
     ],
     "dependencies": {
         "polymer": "Polymer/polymer#^1.1.0",
