@@ -16,94 +16,88 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../iron-iconset-svg/iron-iconset-svg.html">
 <link rel="import" href="cbn-login-button-icons.html">
 <link rel="import" href="cbn-login-button-styles.html">
-<!--<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">-->
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
 
 
 <dom-module id="cbn-login-button">
-  <template>
-    <!--<link rel="stylesheet" href="cbn-login-button.css" >-->
-    <style is="custom-style" include="cbn-login-button-styles"></style>
-   <!-- <style>
-      :host {
-        margin: 5px 34px;
-      }
-    </style>-->
-    <div id="button" class$="{{classButton}}">
-      <paper-ripple id="ripple" class="fit"></paper-ripple>
-      <div class="" tabindex="0" on-tap="signIn">
-        <i class="icon"><iron-icon icon$="{{icon}}" ></iron-icon></i>
-        <span class="buttonText"><content></content></span>
-      </div>
-    </div>
+	<template>
+		<style include="cbn-login-button-styles"></style>
+		<style include="iron-flex"></style>
+		
+		<div id="button" class2$="{{classButton}}" on-tap="signIn" class="layout horizontal">
+			<paper-ripple id="ripple" class="fit"></paper-ripple>
+			<div class="iconContainer" style="padding:5px;"><iron-icon icon$="{{icon}}"></iron-icon></div>
+			<div class="flex buttonText" style="vertical-align: middle"><span><content></content></span></div>
+		</div>
 
-  </template>
+	</template>
 
 </dom-module>
 
 <script>
 
-  Polymer({
+	Polymer({
 
-    is: 'cbn-login-button',
+		is: 'cbn-login-button',
 
-    properties: {
-      /**
-       * The title of the card.
-       */
-      link: {
-        type: String,
-        value: ''
-      },
-      classButton: {
-        type: String,
-        value: ''
-        },
-      labelSignIn: {
-        type: String,
-        value: ''
-        },
-      icon: {
-        type: String,
-        value: ''
-        }
-    },
+		properties: {
+			/**
+			 * The title of the card.
+			 */
+			link: {
+				type: String,
+				value: ''
+			},
+			classButton: {
+				type: String,
+				value: ''
+			},
+			labelSignIn: {
+				type: String,
+				value: ''
+			},
+			icon: {
+				type: String,
+				value: ''
+			}
+		},
 
-    signIn: function () {
-      var keyVal = this.link.split("=");
-      document.location.search = this._insertParam(keyVal[0], keyVal[1]);
-      //window.location.href = this.link;
-    },
-    _insertParam: function (key, value) {
-      key = encodeURI(key);
-      value = encodeURI(value);
+		signIn: function () {
+			var keyVal = this.link.split("=");
+			document.location.search = this._insertParam(keyVal[0], keyVal[1]);
+			//window.location.href = this.link;
+		},
+		_insertParam: function (key, value) {
+			key = encodeURI(key);
+			value = encodeURI(value);
 
-      var kvp = document.location.search.substr(1).split('&');
-      var i = kvp.length;
-      var x;
-      while (i--) {
-        x = kvp[i].split('=');
-        if (x[0] == key) {
-          x[1] = value;
-          kvp[i] = x.join('=');
-          break;
-        }
-      }
-      if (i < 0) {
-        kvp[kvp.length] = [key, value].join('=');
-      }
-      kvp = this._cleanArray(kvp, "");
-      //this will reload the page, it's likely better to store this until finished
-      return kvp.join('&');
+			var kvp = document.location.search.substr(1).split('&');
+			var i = kvp.length;
+			var x;
+			while (i--) {
+				x = kvp[i].split('=');
+				if (x[0] == key) {
+					x[1] = value;
+					kvp[i] = x.join('=');
+					break;
+				}
+			}
+			if (i < 0) {
+				kvp[kvp.length] = [key, value].join('=');
+			}
+			kvp = this._cleanArray(kvp, "");
+			//this will reload the page, it's likely better to store this until finished
+			return kvp.join('&');
 
-    },
-    _cleanArray: function (actual, elemToDelete) {
-      var newArray = [];
-      for (var i = 0; i < actual.length; i++) {
-        if (actual[i] !== elemToDelete) {
-          newArray.push(actual[i]);
-        }
-      }
-      return newArray;
-    }
-  });
+		},
+		_cleanArray: function (actual, elemToDelete) {
+			var newArray = [];
+			for (var i = 0; i < actual.length; i++) {
+				if (actual[i] !== elemToDelete) {
+					newArray.push(actual[i]);
+				}
+			}
+			return newArray;
+		}
+	});
 </script>
