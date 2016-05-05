@@ -92,13 +92,13 @@
 				<div class="well">
 					<iron-image id="logo" src="[[logoUrl]]" sizing="contain"></iron-image>
 					<template is="dom-if" if="[[!hideGoogle]]">
-						<cbn-login-button labelSignin="Sign in with Google" link="auth=appengine" icon="google:google" class-button="brand-google">Sign in with Google</cbn-login-button>	
+						<cbn-login-button login-url="[[loginUrl]]" open-new-tab=[[openNewTab]] link="auth=appengine" icon="google:google" class-button="brand-google">Sign in with Google</cbn-login-button>
 					</template>
 					<template is="dom-if" if="[[!hideYahoo]]">
-						<cbn-login-button labelSignin="Sign in with Yahoo" link="auth=yahoo" icon="yahoo:yahoo" class-button="brand-yahoo">Sign in with Yahoo</cbn-login-button>
+						<cbn-login-button login-url="[[loginUrl]]" open-new-tab=[[openNewTab]] link="auth=yahoo" icon="yahoo:yahoo" class-button="brand-yahoo">Sign in with Yahoo</cbn-login-button>
 					</template>
 					<template is="dom-if" if="[[!hideLinkedin]]">
-						<cbn-login-button labelSignin="Sign in with Linkedin" link="auth=linkedin" icon="linkedin:linkedin" class-button="brand-linkedin">Sign in with Linkedin</cbn-login-button>
+						<cbn-login-button login-url="[[loginUrl]]" open-new-tab=[[openNewTab]] link="auth=linkedin" icon="linkedin:linkedin" class-button="brand-linkedin">Sign in with Linkedin</cbn-login-button>
 					</template>
 				</div>
 			</div>
@@ -129,9 +129,15 @@
 				hideLinkedin: {
 					type: Boolean,
 					value: false
+				},
+				loginUrl:{
+					type:String,
+					value:null
+				},
+				openNewTab:{
+					type: Boolean,
+					value: false
 				}
-
-
 			},
 			listeners: {},
 			ready: function () {
