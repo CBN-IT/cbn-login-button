@@ -52,20 +52,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				type: String,
 				value: ''
 			},
-			labelSignIn: {
-				type: String,
-				value: ''
-			},
 			icon: {
 				type: String,
 				value: ''
+			},
+			loginUrl:{
+				type:String,
+				value:null
+			},
+			openNewTab:{
+				type: Boolean,
+				value: false
 			}
 		},
 
 		signIn: function () {
-			var keyVal = this.link.split("=");
-			document.location.search = this._insertParam(keyVal[0], keyVal[1]);
-			//window.location.href = this.link;
+			var loginUrl = window.location.pathname;
+			if (this.loginUrl != null) {
+				loginUrl = this.loginUrl;
+			}
+			if (this.openNewTab) {
+				var keyVal = this.link.split("=");
+				window.open(loginUrl + "?" + this._insertParam(keyVal[0], keyVal[1]));
+			} else {
+				var keyVal = this.link.split("=");
+				document.location = loginUrl + "?" + this._insertParam(keyVal[0], keyVal[1]);
+			}
 		},
 		_insertParam: function (key, value) {
 			key = encodeURI(key);
