@@ -167,7 +167,7 @@
 				if (xhr == undefined) {
 					return;
 				}
-				if (xhr.status == 401 && xhr.statusText.toLowerCase() == "unauthorized") {
+				if (xhr.status == 401) {
 					this.fire("cbn-login-unauthorized", {
 						"xhr": xhr
 					});
