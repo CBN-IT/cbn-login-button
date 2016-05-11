@@ -137,6 +137,12 @@
 				openNewTab:{
 					type: Boolean,
 					value: false
+				},
+				_handleError: {
+					type: Function,
+					value: function () {
+						return this.__handleError.bind(this);
+					}
 				}
 			},
 			listeners: {},
@@ -146,9 +152,9 @@
 				document.addEventListener("error", this._handleError, true);
 			},
 			detached: function () {
-				document.removeEventListener("error", this._handleError, true);
+				document.removeEventListener("error", this_handleError, true);
 			},
-			_handleError: function (event) {
+			__handleError: function (event) {
 				var xhr = undefined;
 				if (event.detail == undefined) {
 					return;
