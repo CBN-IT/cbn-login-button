@@ -24,7 +24,8 @@
         "iron-image": "PolymerElements/iron-image#^1.0.0",
         "iron-flex-layout": "PolymerElements/iron-flex-layout#^1.0.0",
         "paper-ripple": "PolymerElements/paper-ripple#1.0.5",
-        "font-roboto-local": "PolymerElements/font-roboto-local#1.0.1"
+        "font-roboto-local": "PolymerElements/font-roboto-local#1.0.1",
+        "paper-spinner": "PolymerElements/paper-spinner#1.2.0"
     },
     "devDependencies": {}
 }

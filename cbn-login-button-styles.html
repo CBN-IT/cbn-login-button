@@ -54,6 +54,13 @@
 
 			.iconContainer {
 				padding: 5px;
+				overflow: hidden;
+				width: 24px;
+				height: 24px;
+			}
+			paper-spinner-lite{
+				width: 24px;
+				height: 24px;
 			}
 
 			.buttonText {
@@ -64,20 +71,26 @@
 			/* Dark Theme */
 			[class2="brand-google"] {
 				background: #4285F4;
+				
 				color: #fff;
 				border: 1px solid rgba(0, 0, 0, 0.2);
 			}
-
+			paper-spinner-lite.brand-google{
+				--paper-spinner-color: #4285F4;
+			}
 			[class2="brand-google"] > .iconContainer {
 				background-color: white;
 			}
 
 			[class2="brand-yahoo"] {
 				background: #720e9e;
+				
 				color: #fff;
 				border: 1px solid rgba(0, 0, 0, 0.2);
 			}
-
+			paper-spinner-lite.brand-yahoo{
+				--paper-spinner-color: #720e9e;
+			}
 			[class2="brand-yahoo"] > .iconContainer {
 				color:#720e9e;
 				background-color: white;
@@ -85,10 +98,13 @@
 
 			[class2="brand-linkedin"] {
 				background: #0077B5;
+				
 				color: #fff;
 				border: 1px solid rgba(0, 0, 0, 0.2);
 			}
-
+			paper-spinner-lite.brand-linkedin{
+				--paper-spinner-color: #0077B5;
+			}
 			[class2="brand-linkedin"] > .iconContainer {
 				color:#0077B5;
 				background-color: white;

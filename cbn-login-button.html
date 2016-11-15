@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="cbn-login-button-icons.html">
 <link rel="import" href="cbn-login-button-styles.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
-
+<link rel="import" href="../paper-spinner/paper-spinner-lite.html">
 
 <dom-module id="cbn-login-button">
 	<template>
@@ -26,7 +26,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 		
 		<div id="button" class2$="{{classButton}}" on-tap="signIn" class="layout horizontal">
 			<paper-ripple id="ripple" class="fit"></paper-ripple>
-			<div class="iconContainer"><iron-icon icon$="{{icon}}"></iron-icon></div>
+			<div class="iconContainer">
+				<iron-icon icon$="{{icon}}" hidden$="[[loading]]"></iron-icon>
+				<paper-spinner-lite active="[[loading]]" hidden$="[[!loading]]" class$="{{classButton}}"></paper-spinner-lite>
+			</div>
 			<div class="flex buttonText"><span><content></content></span></div>
 		</div>
 
@@ -63,6 +66,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			openNewTab:{
 				type: Boolean,
 				value: false
+			},
+			loading:{
+				type:Boolean,
+				value:false
 			}
 		},
 
@@ -76,6 +83,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 				window.open(loginUrl + "?" + this._insertParam(keyVal[0], keyVal[1]));
 			} else {
 				var keyVal = this.link.split("=");
+				this.loading=true;
 				document.location = loginUrl + "?" + this._insertParam(keyVal[0], keyVal[1]);
 			}
 		},
