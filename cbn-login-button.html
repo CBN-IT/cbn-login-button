@@ -70,6 +70,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			loading:{
 				type:Boolean,
 				value:false
+			},
+			paramsToRemove:{
+				type:Array,
+				value:[]
 			}
 		},
 
@@ -78,20 +82,40 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 			if (this.loginUrl != null) {
 				loginUrl = this.loginUrl;
 			}
+			var kvp = document.location.search.substr(1).split('&');
+			for (var i in this.paramsToRemove) {
+				kvp = this._removeParam(kvp, this.paramsToRemove[i]);
+			}
 			if (this.openNewTab) {
 				var keyVal = this.link.split("=");
-				window.open(loginUrl + "?" + this._insertParam(keyVal[0], keyVal[1]));
+				window.open(loginUrl + "?" + this._insertParam(kvp, keyVal[0], keyVal[1]));
 			} else {
 				var keyVal = this.link.split("=");
 				this.loading=true;
-				document.location = loginUrl + "?" + this._insertParam(keyVal[0], keyVal[1]);
+				document.location = loginUrl + "?" + this._insertParam(kvp, keyVal[0], keyVal[1]);
 			}
 		},
-		_insertParam: function (key, value) {
+		_removeParam: function(kvp, key){
+			key = encodeURI(key);
+
+			var i = kvp.length;
+			var x;
+			while (i--) {
+				x = kvp[i].split('=');
+				if (x[0] == key) {
+					kvp[i] = "";
+					break;
+				}
+			}
+			kvp = this._cleanArray(kvp, "");
+			//this will reload the page, it's likely better to store this until finished
+			return kvp;
+		},
+		_insertParam: function (kvp, key, value) {
 			key = encodeURI(key);
 			value = encodeURI(value);
 
-			var kvp = document.location.search.substr(1).split('&');
+			
 			var i = kvp.length;
 			var x;
 			while (i--) {

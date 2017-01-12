@@ -84,21 +84,27 @@
 			height: 100px;
 			margin-bottom: 10px
 		}
+		.error{
+			color:red;
+			font-weight: bold;
+		}
 	</style>
 	<template>
 		<span style="flex:1"></span>
 		<div class="modal-content">
 			<div class="modal-body">
 				<div class="well">
+					
 					<iron-image id="logo" src="[[logoUrl]]" sizing="contain"></iron-image>
+					<div class="error">[[error]]</div>
 					<template is="dom-if" if="[[!hideGoogle]]">
-						<cbn-login-button login-url="[[loginUrl]]" open-new-tab=[[openNewTab]] link="auth=appengine" icon="google:google" class-button="brand-google">Sign in with Google</cbn-login-button>
+						<cbn-login-button params-to-remove="[[paramsToRemove]]" login-url="[[loginUrl]]" open-new-tab=[[openNewTab]] link="auth=appengine" icon="google:google" class-button="brand-google">Sign in with Google</cbn-login-button>
 					</template>
 					<template is="dom-if" if="[[!hideYahoo]]">
-						<cbn-login-button login-url="[[loginUrl]]" open-new-tab=[[openNewTab]] link="auth=yahoo" icon="yahoo:yahoo" class-button="brand-yahoo">Sign in with Yahoo</cbn-login-button>
+						<cbn-login-button params-to-remove="[[paramsToRemove]]" login-url="[[loginUrl]]" open-new-tab=[[openNewTab]] link="auth=yahoo" icon="yahoo:yahoo" class-button="brand-yahoo">Sign in with Yahoo</cbn-login-button>
 					</template>
 					<template is="dom-if" if="[[!hideLinkedin]]">
-						<cbn-login-button login-url="[[loginUrl]]" open-new-tab=[[openNewTab]] link="auth=linkedin" icon="linkedin:linkedin" class-button="brand-linkedin">Sign in with Linkedin</cbn-login-button>
+						<cbn-login-button params-to-remove="[[paramsToRemove]]" login-url="[[loginUrl]]" open-new-tab=[[openNewTab]] link="auth=linkedin" icon="linkedin:linkedin" class-button="brand-linkedin">Sign in with Linkedin</cbn-login-button>
 					</template>
 				</div>
 			</div>
@@ -143,12 +149,29 @@
 					value: function () {
 						return this.__handleError.bind(this);
 					}
+				},
+				error:{
+					type:String,
+					value:""
+				},
+				paramsToRemove:{
+					type:Array,
+					value:["error","email"]
 				}
 			},
 			listeners: {},
 			ready: function () {
 			},
 			attached : function () {
+				var params = document.location.search.substr(1).split('&');
+				var p = {};
+				for(var i in params){
+					var param = params[i].split("=");
+					p[param[0]]=param[1];
+				}
+				if (p["error"] == "noAccount") {
+					this.error = "Nu exista nici un cont pe adresa de email: " + p["email"];
+				}
 				document.addEventListener("error", this._handleError, true);
 			},
 			detached: function () {
