@@ -1,0 +1,196 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="cbn-login-button.html">
+
+<dom-module id="cbn-login">
+    <template>
+        <style>
+            :host {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+            }
+
+            .modal-body {
+                margin: auto;
+                position: relative;
+                padding: 15px;
+            }
+
+            .well {
+                -ms-flex-direction: column;
+                -webkit-flex-direction: column;
+                flex-direction: column;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                min-height: 20px;
+                padding: 0 15px 15px 15px;
+                margin-bottom: 10px;
+                background-color: #f5f5f5;
+                border: 1px solid #e3e3e3;
+                border-radius: 4px;
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+            }
+
+            .modal-content {
+                position: relative;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+                border-radius: 6px;
+                outline: 0;
+                box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+                max-width: 350px;
+                width: 100%;
+                margin: 5px auto;
+                min-width: 270px;
+            }
+
+            cbn-login-button {
+                margin: 5px auto;
+                min-width: 220px;
+            }
+
+            #logo {
+                flex: 1;
+                height: 100px;
+                margin-bottom: 10px
+            }
+
+            .error {
+                color: red;
+                font-weight: bold;
+            }
+        </style>
+        <span style="flex:1"></span>
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="well">
+                    <iron-image id="logo" src="[[logoUrl]]" sizing="contain"></iron-image>
+                    <div class="error">[[error]]</div>
+                    <template is="dom-if" if="[[!hideGoogle]]">
+                        <cbn-login-button params-to-remove="[[paramsToRemove]]" login-url="[[loginUrl]]"
+                                          open-new-tab=[[openNewTab]] link="auth=appengine" icon="google:google"
+                                          class-button="brand-google">Sign in with Google
+                        </cbn-login-button>
+                    </template>
+                    <template is="dom-if" if="[[!hideYahoo]]">
+                        <cbn-login-button params-to-remove="[[paramsToRemove]]" login-url="[[loginUrl]]"
+                                          open-new-tab=[[openNewTab]] link="auth=yahoo" icon="yahoo:yahoo"
+                                          class-button="brand-yahoo">Sign in with Yahoo
+                        </cbn-login-button>
+                    </template>
+                    <template is="dom-if" if="[[!hideLinkedin]]">
+                        <cbn-login-button params-to-remove="[[paramsToRemove]]" login-url="[[loginUrl]]"
+                                          open-new-tab=[[openNewTab]] link="auth=linkedin" icon="linkedin:linkedin"
+                                          class-button="brand-linkedin">Sign in with Linkedin
+                        </cbn-login-button>
+                    </template>
+                </div>
+            </div>
+        </div>
+        <span style="flex:3"></span>
+    </template>
+
+    <script>
+        /**
+         * `cbn-login`
+         *
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class CbnLogin extends Polymer.Element {
+            static get is() {
+                return 'cbn-login';
+            }
+
+            static get properties() {
+                return {
+                    logoUrl: {
+                        type: String,
+                        value: "/images/logo.svg"
+                    },
+                    hideGoogle: {
+                        type: Boolean,
+                        value: false
+                    },
+                    hideYahoo: {
+                        type: Boolean,
+                        value: false
+                    },
+                    hideLinkedin: {
+                        type: Boolean,
+                        value: false
+                    },
+                    loginUrl: {
+                        type: String,
+                        value: null
+                    },
+                    openNewTab: {
+                        type: Boolean,
+                        value: false
+                    },
+                    _handleError: {
+                        type: Function,
+                        value: function () {
+                            return this.__handleError.bind(this);
+                        }
+                    },
+                    error: {
+                        type: String,
+                        value: ""
+                    },
+                    paramsToRemove: {
+                        type: Array,
+                        value: ["error", "email"]
+                    }
+                };
+            }
+
+            connectedCallback() {
+                super.connectedCallback();
+                let params = document.location.search.substr(1).split('&');
+                let p = {};
+                for (let i in params) {
+                    let param = params[i].split("=");
+                    p[param[0]] = param[1];
+                }
+                if (p["error"] == "noAccount") {
+                    this.error = "Nu exista nici un cont pe adresa de email: " + p["email"];
+                }
+                document.addEventListener("error", this._handleError, true);
+            }
+
+            disconnectedCallback() {
+                document.removeEventListener("error", this._handleError, true);
+            }
+
+            __handleError(event) {
+                let xhr = undefined;
+                if (event.detail == undefined) {
+                    return;
+                }
+                if (event.detail.xhr != undefined) {
+                    xhr = event.detail.xhr;
+                } else if (event.detail.request != undefined && event.detail.request.xhr != undefined) {
+                    xhr = event.detail.request.xhr;
+                }
+                if (xhr == undefined) {
+                    return;
+                }
+                if (xhr.status == 401) {
+                    this.fire("cbn-login-unauthorized", {
+                        "xhr": xhr
+                    });
+                }
+            }
+        }
+
+        window.customElements.define(CbnLogin.is, CbnLogin);
+    </script>
+</dom-module>

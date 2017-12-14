@@ -1,0 +1,108 @@
+<dom-module id="cbn-login-button-styles">
+    <template>
+        <style>
+            :host {
+                box-sizing: border-box;
+                background: transparent;
+                font: inherit;
+                outline: none;
+                border-radius: 3px;
+                -webkit-user-select: none;
+                user-select: none;
+                cursor: pointer;
+                z-index: 0;
+                display: inline-block;
+                position: relative;
+                margin: 5px 34px;
+            }
+            :host([disabled]) {
+                cursor: auto;
+                pointer-events: none;
+            }
+            :host([disabled]) #button {
+                background: #eaeaea;
+                color: #a8a8a8;
+            }
+            #button {
+                width: 100%;
+                outline: none;
+                font-size: 16px;
+                font-weight: 400;
+                white-space: nowrap;
+                border-radius: inherit;
+            }
+            .icon {
+                display: inline-block;
+                vertical-align: middle;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 20%;
+                line-height: 34px;
+                font-size: 1.6em;
+                border-right: 1px solid rgba(0, 0, 0, 0.2);
+            }
+            #ripple {
+                pointer-events: none;
+            }
+            .iconContainer {
+                padding: 5px;
+                overflow: hidden;
+                width: 24px;
+                height: 24px;
+            }
+            paper-spinner-lite{
+                width: 24px;
+                height: 24px;
+                vertical-align: middle;
+            }
+            .buttonText {
+                padding: 5px 0 5px 20px;
+                line-height: 24px;
+            }
+            /* Dark Theme */
+            [class2="brand-google"] {
+                background: #4285F4;
+
+                color: #fff;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+            }
+            paper-spinner-lite.brand-google{
+                --paper-spinner-color: #4285F4;
+            }
+            [class2="brand-google"] > .iconContainer {
+                background-color: white;
+            }
+            [class2="brand-yahoo"] {
+                background: #720e9e;
+
+                color: #fff;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+            }
+            paper-spinner-lite.brand-yahoo{
+                --paper-spinner-color: #720e9e;
+            }
+            [class2="brand-yahoo"] > .iconContainer {
+                color:#720e9e;
+                background-color: white;
+            }
+            [class2="brand-linkedin"] {
+                background: #0077B5;
+
+                color: #fff;
+                border: 1px solid rgba(0, 0, 0, 0.2);
+            }
+            paper-spinner-lite.brand-linkedin{
+                --paper-spinner-color: #0077B5;
+            }
+            [class2="brand-linkedin"] > .iconContainer {
+                color:#0077B5;
+                background-color: white;
+            }
+            .button > paper-ripple {
+                border-radius: 2px;
+                overflow: hidden;
+            }
+        </style>
+    </template>
+</dom-module>

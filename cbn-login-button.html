@@ -1,0 +1,143 @@
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="../paper-ripple/paper-ripple.html">
+<link rel="import" href="../paper-spinner/paper-spinner-lite.html">
+<link rel="import" href="cbn-login-button-styles.html">
+<link rel="import" href="cbn-login-button-icons.html">
+
+<dom-module id="cbn-login-button">
+    <template>
+        <style include="cbn-login-button-styles iron-flex"></style>
+        <div id="button" class2$="{{classButton}}" on-click="signIn" class="layout horizontal">
+            <paper-ripple id="ripple" class="fit"></paper-ripple>
+            <div class="iconContainer">
+                <iron-icon icon$="{{icon}}" hidden$="[[loading]]"></iron-icon>
+                <paper-spinner-lite active="[[loading]]" hidden$="[[!loading]]"
+                                    class$="{{classButton}}"></paper-spinner-lite>
+            </div>
+            <div class="flex buttonText"><span><slot></slot></span></div>
+        </div>
+    </template>
+
+    <script>
+        /**
+         * `cbn-login-button`
+         *
+         *
+         * @customElement
+         * @polymer
+         * @demo demo/index.html
+         */
+        class CbnLoginButton extends Polymer.Element {
+            static get is() {
+                return 'cbn-login-button';
+            }
+
+            static get properties() {
+                return {
+                    link: {
+                        type: String,
+                        value: ''
+                    },
+                    classButton: {
+                        type: String,
+                        value: ''
+                    },
+                    icon: {
+                        type: String,
+                        value: ''
+                    },
+                    loginUrl: {
+                        type: String,
+                        value: null
+                    },
+                    openNewTab: {
+                        type: Boolean,
+                        value: false
+                    },
+                    loading: {
+                        type: Boolean,
+                        value: false
+                    },
+                    paramsToRemove: {
+                        type: Array,
+                        value: []
+                    }
+                };
+            }
+
+            signIn() {
+                console.log("asdasd");
+                let keyVal;
+                let loginUrl = window.location.pathname;
+                if (this.loginUrl != null) {
+                    loginUrl = this.loginUrl;
+                }
+                let kvp = document.location.search.substr(1).split('&');
+                for (let i in this.paramsToRemove) {
+                    kvp = this._removeParam(kvp, this.paramsToRemove[i]);
+                }
+                if (this.openNewTab) {
+                    keyVal = this.link.split("=");
+                    window.open(loginUrl + "?" + this._insertParam(kvp, keyVal[0], keyVal[1]));
+                } else {
+                    keyVal = this.link.split("=");
+                    this.loading = true;
+                    document.location = loginUrl + "?" + this._insertParam(kvp, keyVal[0], keyVal[1]);
+                }
+            }
+
+            _removeParam(kvp, key) {
+                key = encodeURI(key);
+                let i = kvp.length;
+                let x;
+                while (i--) {
+                    x = kvp[i].split('=');
+                    if (x[0] == key) {
+                        kvp[i] = "";
+                        break;
+                    }
+                }
+                kvp = this._cleanArray(kvp, "");
+                //this will reload the page, it's likely better to store this until finished
+                return kvp;
+            }
+
+            _insertParam(kvp, key, value) {
+                key = encodeURI(key);
+                value = encodeURI(value);
+
+                let i = kvp.length;
+                let x;
+                while (i--) {
+                    x = kvp[i].split('=');
+                    if (x[0] == key) {
+                        x[1] = value;
+                        kvp[i] = x.join('=');
+                        break;
+                    }
+                }
+                if (i < 0) {
+                    kvp[kvp.length] = [key, value].join('=');
+                }
+                kvp = this._cleanArray(kvp, "");
+                //this will reload the page, it's likely better to store this until finished
+                return kvp.join('&');
+            }
+
+            _cleanArray(actual, elemToDelete) {
+                const newArray = [];
+                for (let i = 0; i < actual.length; i++) {
+                    if (actual[i] !== elemToDelete) {
+                        newArray.push(actual[i]);
+                    }
+                }
+                return newArray;
+            }
+        }
+
+        window.customElements.define(CbnLoginButton.is, CbnLoginButton);
+    </script>
+</dom-module>
