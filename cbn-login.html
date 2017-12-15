@@ -167,6 +167,7 @@
             }
 
             disconnectedCallback() {
+                super.disconnectedCallback();
                 document.removeEventListener("error", this._handleError, true);
             }
 
